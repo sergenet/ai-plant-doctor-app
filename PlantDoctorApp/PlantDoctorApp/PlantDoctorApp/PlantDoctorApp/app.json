@@ -1,0 +1,30 @@
+{
+  "name": "AIPlantDoctor",
+  "displayName": "AI Plant Doctor",
+  "expo": {
+    "name": "AI Plant Doctor",
+    "slug": "ai-plant-doctor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4CAF50"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gardenwithserge.aiplantdoctor",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#4CAF50"
+      },
+      "package": "com.gardenwithserge.aiplantdoctor",
+      "versionCode": 1
+    }
+  }
+}
