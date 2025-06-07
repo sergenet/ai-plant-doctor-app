@@ -1,0 +1,4 @@
+node_modules/
+.expo/
+*.tar.gz
+ai-plant-doctor-build-ready/

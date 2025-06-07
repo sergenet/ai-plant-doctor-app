@@ -1,9 +1,7 @@
 {
-  "name": "AIPlantDoctor",
-  "displayName": "AI Plant Doctor",
   "expo": {
     "name": "AI Plant Doctor",
-    "slug": "ai-plant-doctor",
+    "slug": "plant-doctor-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,20 +9,29 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#4CAF50"
+      "backgroundColor": "#2E7D32"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gardenwithserge.aiplantdoctor",
-      "buildNumber": "1"
+      "bundleIdentifier": "com.gardenwithserge.plantdoctor"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#4CAF50"
+        "backgroundColor": "#2E7D32"
       },
-      "package": "com.gardenwithserge.aiplantdoctor",
-      "versionCode": 1
+      "package": "com.gardenwithserge.plantdoctor",
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4bede359-b68f-4eb7-b4b4-5e2d09b766e5"
+      }
     }
   }
 }

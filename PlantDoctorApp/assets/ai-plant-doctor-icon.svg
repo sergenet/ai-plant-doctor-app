@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="180" fill="url(#background)"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="background" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2E7D32;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81C784;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="stethoscopeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8F5E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Large Leaf -->
+  <path d="M 300 400 Q 350 300 450 350 Q 550 400 500 500 Q 450 600 350 550 Q 250 500 300 400 Z" fill="url(#leafGradient)" opacity="0.8"/>
+  
+  <!-- Medium Leaf -->
+  <path d="M 550 300 Q 600 250 680 300 Q 750 350 700 420 Q 650 490 580 440 Q 510 390 550 300 Z" fill="url(#leafGradient)" opacity="0.9"/>
+  
+  <!-- Small Leaf -->
+  <path d="M 400 600 Q 430 570 480 590 Q 530 610 510 650 Q 490 690 450 670 Q 410 650 400 600 Z" fill="url(#leafGradient)"/>
+  
+  <!-- Stethoscope -->
+  <!-- Main tube -->
+  <path d="M 420 450 Q 450 420 480 450 Q 510 480 540 450 Q 570 420 600 450" stroke="url(#stethoscopeGradient)" stroke-width="12" fill="none" stroke-linecap="round"/>
+  
+  <!-- Left earpiece -->
+  <circle cx="420" cy="450" r="8" fill="url(#stethoscopeGradient)"/>
+  <path d="M 420 450 Q 400 430 390 450" stroke="url(#stethoscopeGradient)" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Right earpiece -->
+  <circle cx="600" cy="450" r="8" fill="url(#stethoscopeGradient)"/>
+  <path d="M 600 450 Q 620 430 630 450" stroke="url(#stethoscopeGradient)" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Chest piece -->
+  <circle cx="510" cy="520" r="35" fill="url(#stethoscopeGradient)" stroke="#2E7D32" stroke-width="3"/>
+  <circle cx="510" cy="520" r="25" fill="none" stroke="#2E7D32" stroke-width="2"/>
+  
+  <!-- Connection to chest piece -->
+  <path d="M 510 480 L 510 485" stroke="url(#stethoscopeGradient)" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- AI Circuit Pattern -->
+  <g opacity="0.3">
+    <circle cx="350" cy="350" r="3" fill="#FFFFFF"/>
+    <circle cx="380" cy="330" r="2" fill="#FFFFFF"/>
+    <circle cx="410" cy="310" r="2" fill="#FFFFFF"/>
+    <line x1="350" y1="350" x2="380" y2="330" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="380" y1="330" x2="410" y2="310" stroke="#FFFFFF" stroke-width="1"/>
+    
+    <circle cx="650" cy="380" r="3" fill="#FFFFFF"/>
+    <circle cx="680" cy="360" r="2" fill="#FFFFFF"/>
+    <circle cx="710" cy="340" r="2" fill="#FFFFFF"/>
+    <line x1="650" y1="380" x2="680" y2="360" stroke="#FFFFFF" stroke-width="1"/>
+    <line x1="680" y1="360" x2="710" y2="340" stroke="#FFFFFF" stroke-width="1"/>
+  </g>
+  
+  <!-- App Title -->
+  <text x="512" y="720" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#FFFFFF">AI Plant</text>
+  <text x="512" y="780" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#FFFFFF">Doctor</text>
+</svg>
