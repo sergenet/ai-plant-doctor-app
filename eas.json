@@ -1,25 +1,22 @@
-{
+ {
   "cli": {
     "version": ">= 6.0.0"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "projectRoot": "PlantDoctorApp"
+      "distribution": "internal"
     },
     "preview": {
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      },
-      "projectRoot": "PlantDoctorApp"
+      }
     },
     "production": {
       "android": {
         "buildType": "app-bundle"
-      },
-      "projectRoot": "PlantDoctorApp"
+      }
     }
   },
   "submit": {
