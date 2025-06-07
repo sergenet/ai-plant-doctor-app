@@ -1,4 +1,4 @@
 node_modules/
+android/.gradle/
 .expo/
 *.tar.gz
-ai-plant-doctor-build-ready/
