@@ -7,14 +7,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-    - name: Install dependencies
-      run: |
-        cd PlantDoctorApp
-        npm install
-    - name: Test build
-      run: echo "Android build ready"
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd PlantDoctorApp
+          npm install
+
+      - name: Build Android App Bundle
+        run: |
+          cd PlantDoctorApp/android
+          ./gradlew bundleRelease
+
+      - name: Upload AAB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.aab
+          path: PlantDoctorApp/android/app/build/outputs/bundle/release/app-release.aab
