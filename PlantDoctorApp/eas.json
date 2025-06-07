@@ -6,25 +6,23 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "android": {
-        "projectRoot": "PlantDoctorApp"
-      }
+      "projectRoot": "PlantDoctorApp"
     },
     "preview": {
       "distribution": "internal",
       "android": {
-        "buildType": "apk",
-        "projectRoot": "PlantDoctorApp"
-      }
+        "buildType": "apk"
+      },
+      "projectRoot": "PlantDoctorApp"
     },
     "production": {
       "android": {
-        "buildType": "app-bundle",
-        "projectRoot": "PlantDoctorApp"
-      }
+        "buildType": "app-bundle"
+      },
+      "projectRoot": "PlantDoctorApp"
     }
   },
   "submit": {
     "production": {}
   }
-}
+} 
