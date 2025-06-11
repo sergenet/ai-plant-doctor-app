@@ -1,248 +1,225 @@
-import React, { useState, useCallback } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  ScrollView,
-  SafeAreaView,
-  Alert 
-} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Linking, Alert } from 'react-native';
+import { SUBSCRIPTION_URLS } from '../constants/api';
 
-const PremiumScreen = React.memo(() => {
-  const [selectedPlan, setSelectedPlan] = useState('monthly');
-
-  const plans = [
-    {
-      id: 'monthly',
-      title: 'Monthly',
-      price: '$4.99',
-      period: '/month',
-      savings: null,
-    },
-    {
-      id: 'yearly',
-      title: 'Yearly',
-      price: '$39.99',
-      period: '/year',
-      savings: 'Save 33%',
-    },
-  ];
-
-  const features = [
-    'Unlimited plant diagnoses',
-    'Advanced disease identification',
-    'Treatment recommendations',
-    'Plant care reminders',
-    'Expert consultation',
-    'Ad-free experience',
-  ];
-
-  const handlePlanSelect = useCallback((planId) => {
-    setSelectedPlan(planId);
-  }, []);
-
-  const handleSubscribe = useCallback(() => {
-    const plan = plans.find(p => p.id === selectedPlan);
-    Alert.alert(
-      'Subscribe',
-      `This is a demo. In a real app, you would subscribe to the ${plan.title} plan for ${plan.price}${plan.period}.`,
-      [{ text: 'OK' }]
-    );
-  }, [selectedPlan, plans]);
+const PremiumScreen = ({ navigation }) => {
+  const handleSubscription = async (url, planName) => {
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert('Error', 'Unable to open subscription page');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to open subscription page');
+    }
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <View style={styles.content}>
-          <Text style={styles.title}>Premium Features</Text>
-          <Text style={styles.subtitle}>
-            Unlock advanced plant care capabilities
-          </Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Premium Membership</Text>
+        <Text style={styles.subtitle}>
+          Unlock unlimited plant analyses and exclusive benefits
+        </Text>
+      </View>
 
-          <View style={styles.featuresContainer}>
-            {features.map((feature, index) => (
-              <View key={index} style={styles.featureItem}>
-                <Text style={styles.checkmark}>✓</Text>
-                <Text style={styles.featureText}>{feature}</Text>
-              </View>
-            ))}
+      <View style={styles.planContainer}>
+        <View style={styles.planCard}>
+          <Text style={styles.planName}>Basic Membership</Text>
+          <Text style={styles.planPrice}>$4.99/month</Text>
+          <View style={styles.featuresList}>
+            <Text style={styles.feature}>• Unlimited plant analyses</Text>
+            <Text style={styles.feature}>• Essential garden guides</Text>
+            <Text style={styles.feature}>• Member discounts</Text>
+            <Text style={styles.feature}>• Email support</Text>
           </View>
-
-          <View style={styles.plansContainer}>
-            <Text style={styles.plansTitle}>Choose Your Plan</Text>
-            {plans.map((plan) => (
-              <TouchableOpacity
-                key={plan.id}
-                style={[
-                  styles.planCard,
-                  selectedPlan === plan.id && styles.selectedPlan
-                ]}
-                onPress={() => handlePlanSelect(plan.id)}
-                activeOpacity={0.8}
-              >
-                <View style={styles.planHeader}>
-                  <Text style={styles.planTitle}>{plan.title}</Text>
-                  {plan.savings && (
-                    <View style={styles.savingsBadge}>
-                      <Text style={styles.savingsText}>{plan.savings}</Text>
-                    </View>
-                  )}
-                </View>
-                <Text style={styles.planPrice}>
-                  {plan.price}
-                  <Text style={styles.planPeriod}>{plan.period}</Text>
-                </Text>
-              </TouchableOpacity>
-            ))}
+          
+          <View style={styles.paymentButtons}>
+            <TouchableOpacity 
+              style={styles.stripeButton}
+              onPress={() => handleSubscription(SUBSCRIPTION_URLS.BASIC_STRIPE, 'Basic Stripe')}
+            >
+              <Text style={styles.paymentButtonText}>Pay with Stripe</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={styles.paypalButton}
+              onPress={() => handleSubscription(SUBSCRIPTION_URLS.BASIC_PAYPAL, 'Basic PayPal')}
+            >
+              <Text style={styles.paymentButtonText}>Pay with PayPal</Text>
+            </TouchableOpacity>
           </View>
-
-          <TouchableOpacity 
-            style={styles.subscribeButton} 
-            onPress={handleSubscribe}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.subscribeButtonText}>
-              Start Premium
-            </Text>
-          </TouchableOpacity>
-
-          <Text style={styles.disclaimer}>
-            Cancel anytime. Terms and conditions apply.
-          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+
+        <View style={[styles.planCard, styles.premiumCard]}>
+          <View style={styles.popularBadgeContainer}>
+            <Text style={styles.popularBadge}>Most Popular</Text>
+          </View>
+          <Text style={styles.planName}>Green Thumb Membership</Text>
+          <Text style={styles.planPrice}>$9.99/month</Text>
+          <View style={styles.featuresList}>
+            <Text style={styles.feature}>• Everything in Basic</Text>
+            <Text style={styles.feature}>• AI-powered garden planning</Text>
+            <Text style={styles.feature}>• Weekly expert tips</Text>
+            <Text style={styles.feature}>• Priority support</Text>
+            <Text style={styles.feature}>• Exclusive partnerships</Text>
+          </View>
+          
+          <View style={styles.paymentButtons}>
+            <TouchableOpacity 
+              style={styles.stripeButton}
+              onPress={() => handleSubscription(SUBSCRIPTION_URLS.PREMIUM_STRIPE, 'Premium Stripe')}
+            >
+              <Text style={styles.paymentButtonText}>Pay with Stripe</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={styles.paypalButton}
+              onPress={() => handleSubscription(SUBSCRIPTION_URLS.PREMIUM_PAYPAL, 'Premium PayPal')}
+            >
+              <Text style={styles.paymentButtonText}>Pay with PayPal</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.benefitsContainer}>
+        <Text style={styles.benefitsTitle}>Why Go Premium?</Text>
+        <Text style={styles.benefitItem}>🌱 Unlimited plant diagnoses</Text>
+        <Text style={styles.benefitItem}>📚 Access to expert garden guides</Text>
+        <Text style={styles.benefitItem}>💰 Exclusive tool discounts</Text>
+        <Text style={styles.benefitItem}>🤖 AI-powered garden planning</Text>
+        <Text style={styles.benefitItem}>📧 Weekly gardening tips</Text>
+        <Text style={styles.benefitItem}>🏆 Priority customer support</Text>
+      </View>
+    </ScrollView>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8f9fa',
   },
-  scrollView: {
-    flex: 1,
-  },
-  content: {
+  header: {
     padding: 20,
+    alignItems: 'center',
+    backgroundColor: '#4a7c59',
+    marginBottom: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#2E7D32',
-    textAlign: 'center',
-    marginBottom: 10,
+    color: '#ffffff',
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#e8f5e8',
     textAlign: 'center',
-    marginBottom: 30,
+    lineHeight: 22,
   },
-  featuresContainer: {
-    backgroundColor: 'white',
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  featureItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  checkmark: {
-    fontSize: 18,
-    color: '#2E7D32',
-    fontWeight: 'bold',
-    marginRight: 15,
-  },
-  featureText: {
-    fontSize: 16,
-    color: '#333',
-    flex: 1,
-  },
-  plansContainer: {
-    marginBottom: 30,
-  },
-  plansTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 20,
+  planContainer: {
+    paddingHorizontal: 20,
   },
   planCard: {
-    backgroundColor: 'white',
-    borderRadius: 15,
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
     padding: 20,
-    marginBottom: 15,
-    borderWidth: 2,
-    borderColor: 'transparent',
+    marginBottom: 20,
+    elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    position: 'relative',
   },
-  selectedPlan: {
-    borderColor: '#2E7D32',
-    backgroundColor: '#f8fff8',
+  premiumCard: {
+    borderWidth: 2,
+    borderColor: '#ff6b35',
   },
-  planHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  planTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  savingsBadge: {
-    backgroundColor: '#FF6B35',
-    paddingHorizontal: 10,
+  popularBadgeContainer: {
+    position: 'absolute',
+    top: -10,
+    right: 20,
+    backgroundColor: '#ff6b35',
+    paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
   },
-  savingsText: {
-    color: 'white',
+  popularBadge: {
+    color: '#ffffff',
     fontSize: 12,
     fontWeight: 'bold',
+  },
+  planName: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+    textAlign: 'center',
   },
   planPrice: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#2E7D32',
-  },
-  planPeriod: {
-    fontSize: 16,
-    fontWeight: 'normal',
-    color: '#666',
-  },
-  subscribeButton: {
-    backgroundColor: '#2E7D32',
-    paddingVertical: 18,
-    borderRadius: 25,
+    color: '#4a7c59',
+    textAlign: 'center',
     marginBottom: 20,
   },
-  subscribeButtonText: {
-    color: 'white',
-    fontSize: 18,
+  featuresList: {
+    marginBottom: 25,
+  },
+  feature: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 8,
+    lineHeight: 22,
+  },
+  paymentButtons: {
+    gap: 12,
+  },
+  stripeButton: {
+    backgroundColor: '#635bff',
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  paypalButton: {
+    backgroundColor: '#0070ba',
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  paymentButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
     fontWeight: 'bold',
+  },
+  benefitsContainer: {
+    backgroundColor: '#ffffff',
+    margin: 20,
+    padding: 20,
+    borderRadius: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  benefitsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 15,
     textAlign: 'center',
   },
-  disclaimer: {
-    fontSize: 12,
-    color: '#999',
-    textAlign: 'center',
-    lineHeight: 18,
+  benefitItem: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 10,
+    lineHeight: 22,
   },
 });
 

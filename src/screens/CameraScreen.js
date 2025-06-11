@@ -1,181 +1,238 @@
-import React, { useState, useCallback } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  Image, 
-  Alert,
-  SafeAreaView,
-  ActivityIndicator 
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert, ScrollView, ActivityIndicator } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import { analyzePlantImage } from '../services/plantDoctorService';
+import { canAnalyze, incrementAnalysisCount, getRemainingAnalyses } from '../services/freemiumService';
 
-const CameraScreen = React.memo(() => {
+const CameraScreen = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [diagnosis, setDiagnosis] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const imagePickerOptions = {
-    mediaType: 'photo',
-    quality: 0.8,
-    maxWidth: 1024,
-    maxHeight: 1024,
+  const showImagePicker = () => {
+    Alert.alert(
+      'Select Image',
+      'Choose how you want to select a plant image',
+      [
+        { text: 'Camera', onPress: openCamera },
+        { text: 'Photo Library', onPress: openImageLibrary },
+        { text: 'Cancel', style: 'cancel' }
+      ]
+    );
   };
 
-  const handleCameraPress = useCallback(() => {
-    launchCamera(imagePickerOptions, (response) => {
-      if (response.assets && response.assets[0]) {
-        setSelectedImage(response.assets[0]);
-      }
-    });
-  }, []);
+  const openCamera = () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 0.8,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      includeBase64: true,
+    };
 
-  const handleGalleryPress = useCallback(() => {
-    launchImageLibrary(imagePickerOptions, (response) => {
-      if (response.assets && response.assets[0]) {
-        setSelectedImage(response.assets[0]);
-      }
-    });
-  }, []);
+    launchCamera(options, handleImageResponse);
+  };
 
-  const handleAnalyzePress = useCallback(async () => {
-    if (!selectedImage) {
-      Alert.alert('No Image', 'Please select an image first');
+  const openImageLibrary = () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 0.8,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      includeBase64: true,
+    };
+
+    launchImageLibrary(options, handleImageResponse);
+  };
+
+  const handleImageResponse = (response) => {
+    if (response.didCancel || response.error) {
       return;
     }
 
-    setIsAnalyzing(true);
+    if (response.assets && response.assets[0]) {
+      setSelectedImage(response.assets[0]);
+      setDiagnosis(null);
+    }
+  };
+
+  const analyzeImage = async () => {
+    if (!selectedImage) {
+      Alert.alert('Error', 'Please select an image first');
+      return;
+    }
+
+    const canPerformAnalysis = await canAnalyze();
+    if (!canPerformAnalysis) {
+      Alert.alert(
+        'Free Analyses Exhausted',
+        'You have used all your free analyses. Upgrade to premium for unlimited access.',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Upgrade', onPress: () => navigation.navigate('Premium') }
+        ]
+      );
+      return;
+    }
+
+    setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      Alert.alert(
-        'Analysis Complete',
-        'This is a demo. In a real app, this would analyze the plant image using AI.',
-        [{ text: 'OK' }]
-      );
+      const result = await analyzePlantImage(selectedImage.base64);
+      
+      if (result.success) {
+        await incrementAnalysisCount();
+        setDiagnosis(result.diagnosis);
+      } else {
+        Alert.alert('Analysis Failed', result.error);
+      }
     } catch (error) {
       Alert.alert('Error', 'Failed to analyze image. Please try again.');
     } finally {
-      setIsAnalyzing(false);
+      setLoading(false);
     }
-  }, [selectedImage]);
+  };
+
+  const formatDiagnosis = (diagnosisText) => {
+    return diagnosisText.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\n/g, '\n\n');
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Plant Diagnosis</Text>
-        <Text style={styles.subtitle}>
-          Take a photo or select from gallery to diagnose plant diseases
-        </Text>
-
-        {selectedImage && (
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: selectedImage.uri }} style={styles.selectedImage} />
+    <ScrollView style={styles.container}>
+      <View style={styles.imageContainer}>
+        {selectedImage ? (
+          <Image source={{ uri: selectedImage.uri }} style={styles.selectedImage} />
+        ) : (
+          <View style={styles.placeholderContainer}>
+            <Text style={styles.placeholderText}>No image selected</Text>
+            <Text style={styles.placeholderSubtext}>Take a photo or select from library</Text>
           </View>
         )}
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity 
-            style={styles.cameraButton} 
-            onPress={handleCameraPress}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.buttonText}>Take Photo</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-            style={styles.galleryButton} 
-            onPress={handleGalleryPress}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.buttonText}>Choose from Gallery</Text>
-          </TouchableOpacity>
-
-          {selectedImage && (
-            <TouchableOpacity 
-              style={[styles.analyzeButton, isAnalyzing && styles.disabledButton]} 
-              onPress={handleAnalyzePress}
-              disabled={isAnalyzing}
-              activeOpacity={0.8}
-            >
-              {isAnalyzing ? (
-                <ActivityIndicator color="white" />
-              ) : (
-                <Text style={styles.analyzeButtonText}>Analyze Plant</Text>
-              )}
-            </TouchableOpacity>
-          )}
-        </View>
       </View>
-    </SafeAreaView>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.selectButton} onPress={showImagePicker}>
+          <Text style={styles.buttonText}>Select Plant Image</Text>
+        </TouchableOpacity>
+
+        {selectedImage && (
+          <TouchableOpacity 
+            style={[styles.analyzeButton, loading && styles.disabledButton]} 
+            onPress={analyzeImage}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Analyze Plant</Text>
+            )}
+          </TouchableOpacity>
+        )}
+      </View>
+
+      {diagnosis && (
+        <View style={styles.resultsContainer}>
+          <Text style={styles.resultsTitle}>Diagnosis Results</Text>
+          <Text style={styles.diagnosisText}>{formatDiagnosis(diagnosis)}</Text>
+        </View>
+      )}
+    </ScrollView>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  content: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2E7D32',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 30,
+    backgroundColor: '#f8f9fa',
   },
   imageContainer: {
-    alignItems: 'center',
-    marginBottom: 30,
+    margin: 20,
+    borderRadius: 12,
+    overflow: 'hidden',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   selectedImage: {
-    width: 250,
-    height: 250,
-    borderRadius: 10,
+    width: '100%',
+    height: 300,
     resizeMode: 'cover',
   },
+  placeholderContainer: {
+    height: 300,
+    backgroundColor: '#e9ecef',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeholderText: {
+    fontSize: 18,
+    color: '#6c757d',
+    fontWeight: '500',
+  },
+  placeholderSubtext: {
+    fontSize: 14,
+    color: '#adb5bd',
+    marginTop: 8,
+  },
   buttonContainer: {
-    gap: 15,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
-  cameraButton: {
-    backgroundColor: '#2E7D32',
-    paddingVertical: 15,
-    borderRadius: 10,
-  },
-  galleryButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 15,
-    borderRadius: 10,
+  selectButton: {
+    backgroundColor: '#4a7c59',
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginBottom: 12,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   analyzeButton: {
-    backgroundColor: '#FF6B35',
-    paddingVertical: 15,
-    borderRadius: 10,
-    marginTop: 10,
+    backgroundColor: '#28a745',
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   disabledButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#6c757d',
   },
   buttonText: {
-    color: 'white',
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  resultsContainer: {
+    backgroundColor: '#ffffff',
+    margin: 20,
+    padding: 20,
+    borderRadius: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  resultsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 15,
     textAlign: 'center',
   },
-  analyzeButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  diagnosisText: {
+    fontSize: 16,
+    color: '#495057',
+    lineHeight: 24,
   },
 });
 
