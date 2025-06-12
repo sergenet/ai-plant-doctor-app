@@ -1,0 +1,2 @@
+commands:
+app build    npx eas build -p android --profile production
