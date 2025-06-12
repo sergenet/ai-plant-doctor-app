@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Image, ScrollView, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -38,6 +38,7 @@ export default function CameraScreen({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 0.7,
+      base64: true,
     });
     if (!result.canceled && result.assets && result.assets[0]) {
       setSelectedImage(result.assets[0]);
@@ -54,6 +55,7 @@ export default function CameraScreen({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 0.7,
+      base64: true,
     });
     if (!result.canceled && result.assets && result.assets[0]) {
       setSelectedImage(result.assets[0]);

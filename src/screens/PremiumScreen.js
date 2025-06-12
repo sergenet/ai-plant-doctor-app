@@ -5,6 +5,7 @@ export default function PremiumScreen({ navigation }) {
   const handleSubscribe = (plan) => {
     // Implement Stripe payment integration here
     console.log(`Subscribing to ${plan} plan`);
+    // You can show an alert or navigate to a payment screen here
   };
 
   return (
