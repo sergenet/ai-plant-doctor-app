@@ -1,0 +1,8 @@
+[12-Jun-2025 18:07:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'sergbcqk_gardenwithserge_user'@'localhost' to database 'sergbcqk_gardenwithserge_db' in /home/sergbcqk/gardenwithserge.com/db.php:8
+Stack trace:
+#0 /home/sergbcqk/gardenwithserge.com/db.php(8): mysqli->__construct()
+#1 /home/sergbcqk/gardenwithserge.com/register.php(40): get_db_connection()
+#2 {main}
+  thrown in /home/sergbcqk/gardenwithserge.com/db.php on line 8
+[12-Jun-2025 18:14:19 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in /home/sergbcqk/gardenwithserge.com/register.php on line 2
+[12-Jun-2025 18:16:01 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in /home/sergbcqk/gardenwithserge.com/register.php on line 2
