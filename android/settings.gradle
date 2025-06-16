@@ -2,8 +2,8 @@ rootProject.name = 'AI Plant Doctor'
 
 dependencyResolutionManagement {
   versionCatalogs {
-    reactAndroidLibs {
-      from(files(new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), "../gradle/libs.versions.toml")))
+    myLibs {
+      from(files("$rootDir/../gradle/libs.versions.toml"))
     }
   }
 }
