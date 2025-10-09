@@ -10,8 +10,10 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileScreen({ navigation }) {
+  const { t } = useTranslation();
   const [savedDiagnoses, setSavedDiagnoses] = useState([]);
   const [isPremium, setIsPremium] = useState(false);
   const [diagnosesCount, setDiagnosesCount] = useState(0);
@@ -40,11 +42,11 @@ export default function ProfileScreen({ navigation }) {
 
   const deleteDiagnosis = async (id) => {
     Alert.alert(
-      'Delete Diagnosis',
-      'Are you sure you want to delete this diagnosis?',
+      t('profile.deleteTitle'),
+      t('profile.deleteMessage'),
       [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => confirmDelete(id) },
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('common.delete'), style: 'destructive', onPress: () => confirmDelete(id) },
       ]
     );
   };

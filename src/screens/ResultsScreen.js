@@ -9,8 +9,10 @@ import {
   Share,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 export default function ResultsScreen({ route, navigation }) {
+  const { t } = useTranslation();
   const { diagnosis, imageUri } = route.params;
   const [isSaved, setIsSaved] = useState(false);
 
@@ -36,11 +38,14 @@ export default function ResultsScreen({ route, navigation }) {
 
   const shareDiagnosis = async () => {
     try {
-      const message = `Plant Doctor Diagnosis:\n\n${diagnosis.disease || 'Disease identified'}\n\nTreatment: ${diagnosis.treatment || 'Treatment recommendations provided'}\n\nGet your free plant diagnosis at: gardenwithserge.com`;
+      const message = t('results.shareMessage', {
+        disease: diagnosis.disease || 'Disease identified',
+        treatment: diagnosis.treatment || 'Treatment recommendations provided'
+      });
       
       await Share.share({
         message,
-        title: 'Plant Doctor Diagnosis',
+        title: t('results.shareTitle'),
       });
     } catch (error) {
       console.log('Error sharing:', error);
