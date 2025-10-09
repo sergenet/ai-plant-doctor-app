@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert, Image, ScrollView, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLanguage } from '../contexts/LanguageContext';
+import { analyzePlantImage } from '../services/plantDoctorService';
 
 const FREE_ANALYSIS_LIMIT = 3;
 
 export default function CameraScreen({ navigation }) {
+  const { translations, language } = useLanguage();
   const [selectedImage, setSelectedImage] = useState(null);
   const [diagnosis, setDiagnosis] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,7 +34,7 @@ export default function CameraScreen({ navigation }) {
   const openCamera = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== 'granted') {
-      Alert.alert('Permission required', 'Camera permission is required to take a photo.');
+      Alert.alert(translations.permissionRequired, translations.cameraPermission);
       return;
     }
     let result = await ImagePicker.launchCameraAsync({
@@ -48,7 +51,7 @@ export default function CameraScreen({ navigation }) {
   const openGallery = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
-      Alert.alert('Permission required', 'Media library permission is required to select a photo.');
+      Alert.alert(translations.permissionRequired, translations.mediaPermission);
       return;
     }
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -66,29 +69,37 @@ export default function CameraScreen({ navigation }) {
     const analysisCount = await checkAnalysisCount();
     if (analysisCount >= FREE_ANALYSIS_LIMIT) {
       Alert.alert(
-        'Upgrade Required',
-        'You have used all 3 free analyses. Upgrade to Premium for unlimited diagnoses.',
+        translations.upgradeRequired,
+        translations.freeLimitReached,
         [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'Upgrade', onPress: () => navigation.navigate('Premium') }
+          { text: translations.cancel, style: 'cancel' },
+          { text: translations.upgrade, onPress: () => navigation.navigate('Premium') }
         ]
       );
       return;
     }
 
     if (!selectedImage) {
-      Alert.alert('Error', 'Please select an image first');
+      Alert.alert(translations.error, translations.selectImageFirst);
       return;
     }
 
     setLoading(true);
 
     try {
-      // Placeholder for AI analysis:
-      setDiagnosis('Plant analysis complete. Based on the image, this appears to be a healthy plant with no visible diseases detected.');
-      await incrementAnalysisCount();
+      const result = await analyzePlantImage(selectedImage.base64, language);
+      
+      if (result.success) {
+        await incrementAnalysisCount();
+        navigation.navigate('Results', {
+          diagnosis: result.diagnosis,
+          imageUri: selectedImage.uri
+        });
+      } else {
+        Alert.alert(translations.error, result.error || translations.analysisFailed);
+      }
     } catch (error) {
-      Alert.alert('Error', 'Failed to analyze image. Please try again.');
+      Alert.alert(translations.error, translations.analysisFailed);
     } finally {
       setLoading(false);
     }
@@ -97,15 +108,15 @@ export default function CameraScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Plant Disease Diagnosis</Text>
+        <Text style={styles.title}>{translations.plantDiagnosisTitle}</Text>
         {selectedImage && (
           <Image source={{ uri: selectedImage.uri }} style={styles.image} />
         )}
         <TouchableOpacity style={styles.button} onPress={openCamera}>
-          <Text style={styles.buttonText}>Take Photo</Text>
+          <Text style={styles.buttonText}>{translations.takePhotoBtn}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={openGallery}>
-          <Text style={styles.buttonText}>Select from Gallery</Text>
+          <Text style={styles.buttonText}>{translations.selectGalleryBtn}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.analyzeButton]}
@@ -113,12 +124,12 @@ export default function CameraScreen({ navigation }) {
           disabled={!selectedImage || loading}
         >
           <Text style={styles.buttonText}>
-            {loading ? 'Analyzing...' : 'Analyze Plant'}
+            {loading ? translations.analyzingText : translations.analyzePlantBtn}
           </Text>
         </TouchableOpacity>
         {diagnosis ? (
           <View style={styles.diagnosisContainer}>
-            <Text style={styles.diagnosisTitle}>Diagnosis:</Text>
+            <Text style={styles.diagnosisTitle}>{translations.diagnosisLabel}</Text>
             <Text style={styles.diagnosisText}>{diagnosis}</Text>
           </View>
         ) : null}

@@ -9,8 +9,10 @@ import {
   Share,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function ResultsScreen({ route, navigation }) {
+  const { translations } = useLanguage();
   const { diagnosis, imageUri } = route.params;
   const [isSaved, setIsSaved] = useState(false);
 
@@ -36,11 +38,15 @@ export default function ResultsScreen({ route, navigation }) {
 
   const shareDiagnosis = async () => {
     try {
-      const message = `Plant Doctor Diagnosis:\n\n${diagnosis.disease || 'Disease identified'}\n\nTreatment: ${diagnosis.treatment || 'Treatment recommendations provided'}\n\nGet your free plant diagnosis at: gardenwithserge.com`;
+      const diseaseText = diagnosis.disease || 'Disease identified';
+      const treatmentText = diagnosis.treatment || 'Treatment recommendations provided';
+      const message = translations.shareMessage
+        .replace('{disease}', diseaseText)
+        .replace('{treatment}', treatmentText);
       
       await Share.share({
         message,
-        title: 'Plant Doctor Diagnosis',
+        title: translations.shareTitle,
       });
     } catch (error) {
       console.log('Error sharing:', error);
@@ -67,7 +73,7 @@ export default function ResultsScreen({ route, navigation }) {
 
       <View style={styles.resultContainer}>
         <View style={styles.header}>
-          <Text style={styles.title}>🩺 Diagnosis Results</Text>
+          <Text style={styles.title}>{translations.diagnosisResults}</Text>
           <Text style={styles.date}>
             {new Date().toLocaleDateString('en-US', {
               year: 'numeric',
@@ -92,7 +98,7 @@ export default function ResultsScreen({ route, navigation }) {
             disabled={isSaved}
           >
             <Text style={styles.actionButtonText}>
-              {isSaved ? '✅ Saved' : '💾 Save to My Plants'}
+              {isSaved ? translations.savedButton : translations.saveButton}
             </Text>
           </TouchableOpacity>
 
@@ -100,17 +106,17 @@ export default function ResultsScreen({ route, navigation }) {
             style={styles.actionButton}
             onPress={shareDiagnosis}
           >
-            <Text style={styles.actionButtonText}>📤 Share Results</Text>
+            <Text style={styles.actionButtonText}>{translations.shareButton}</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.tipsContainer}>
-          <Text style={styles.tipsTitle}>💡 General Plant Care Tips:</Text>
-          <Text style={styles.tip}>• Monitor your plant daily for changes</Text>
-          <Text style={styles.tip}>• Ensure proper drainage in pots</Text>
-          <Text style={styles.tip}>• Adjust watering based on season</Text>
-          <Text style={styles.tip}>• Provide adequate light for your plant type</Text>
-          <Text style={styles.tip}>• Remove dead or diseased leaves promptly</Text>
+          <Text style={styles.tipsTitle}>{translations.generalCareTips}</Text>
+          <Text style={styles.tip}>{translations.tip1}</Text>
+          <Text style={styles.tip}>{translations.tip2}</Text>
+          <Text style={styles.tip}>{translations.tip3}</Text>
+          <Text style={styles.tip}>{translations.tip4}</Text>
+          <Text style={styles.tip}>{translations.tip5}</Text>
         </View>
 
         <TouchableOpacity
@@ -118,7 +124,7 @@ export default function ResultsScreen({ route, navigation }) {
           onPress={() => navigation.navigate('Camera')}
         >
           <Text style={styles.newDiagnosisButtonText}>
-            📷 Diagnose Another Plant
+            {translations.diagnoseAnotherButton}
           </Text>
         </TouchableOpacity>
 
@@ -126,7 +132,7 @@ export default function ResultsScreen({ route, navigation }) {
           style={styles.homeButton}
           onPress={() => navigation.navigate('Home')}
         >
-          <Text style={styles.homeButtonText}>🏠 Back to Home</Text>
+          <Text style={styles.homeButtonText}>{translations.backHomeButton}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
