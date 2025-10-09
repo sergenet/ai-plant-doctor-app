@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gardenwithserge.plantdoctor"
+      "bundleIdentifier": "com.timerhaven.plantdoctor"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#2E7D32"
       },
-      "package": "com.gardenwithserge.plantdoctor",
+      "package": "com.timerhaven.plantdoctor",
       "permissions": [
         "CAMERA"
       ]

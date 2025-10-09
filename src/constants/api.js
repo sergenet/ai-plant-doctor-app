@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: 'https://gardenwithserge.com',
+  BASE_URL: 'https://timerhaven.com',
   ENDPOINTS: {
     PLANT_DIAGNOSIS: 'identify-plant-disease.php'
   },

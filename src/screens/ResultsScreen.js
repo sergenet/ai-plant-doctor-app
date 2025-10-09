@@ -36,7 +36,7 @@ export default function ResultsScreen({ route, navigation }) {
 
   const shareDiagnosis = async () => {
     try {
-      const message = `Plant Doctor Diagnosis:\n\n${diagnosis.disease || 'Disease identified'}\n\nTreatment: ${diagnosis.treatment || 'Treatment recommendations provided'}\n\nGet your free plant diagnosis at: gardenwithserge.com`;
+      const message = `Plant Doctor Diagnosis:\n\n${diagnosis.disease || 'Disease identified'}\n\nTreatment: ${diagnosis.treatment || 'Treatment recommendations provided'}\n\nGet your free plant diagnosis at: timerhaven.com`;
       
       await Share.share({
         message,
