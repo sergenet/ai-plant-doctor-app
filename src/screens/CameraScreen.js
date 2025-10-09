@@ -90,8 +90,11 @@ export default function CameraScreen({ navigation }) {
       const result = await analyzePlantImage(selectedImage.base64, language);
       
       if (result.success) {
-        setDiagnosis(result.diagnosis);
         await incrementAnalysisCount();
+        navigation.navigate('Results', {
+          diagnosis: result.diagnosis,
+          imageUri: selectedImage.uri
+        });
       } else {
         Alert.alert(translations.error, result.error || translations.analysisFailed);
       }

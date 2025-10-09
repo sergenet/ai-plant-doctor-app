@@ -6,6 +6,8 @@ import { LanguageProvider } from './src/contexts/LanguageContext';
 import HomeScreen from './src/screens/HomeScreen';
 import CameraScreen from './src/screens/CameraScreen';
 import PremiumScreen from './src/screens/PremiumScreen';
+import ResultsScreen from './src/screens/ResultsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +42,16 @@ const App = React.memo(() => {
               name="Premium" 
               component={PremiumScreen} 
               options={{ title: 'Premium Subscription' }}
+            />
+            <Stack.Screen 
+              name="Results" 
+              component={ResultsScreen} 
+              options={{ title: 'Diagnosis Results' }}
+            />
+            <Stack.Screen 
+              name="Profile" 
+              component={ProfileScreen} 
+              options={{ title: 'My Profile' }}
             />
           </Stack.Navigator>
         </NavigationContainer>
