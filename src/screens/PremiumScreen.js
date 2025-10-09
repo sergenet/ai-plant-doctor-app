@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function PremiumScreen({ navigation }) {
+  const { translations } = useLanguage();
+
   const handleSubscribe = (plan) => {
     // Implement Stripe payment integration here
     console.log(`Subscribing to ${plan} plan`);
@@ -11,38 +14,41 @@ export default function PremiumScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Premium Subscription</Text>
-        <Text style={styles.subtitle}>Unlock unlimited plant diagnoses</Text>
+        <Text style={styles.title}>{translations.premiumTitle}</Text>
+        <Text style={styles.subtitle}>{translations.premiumSubtitle}</Text>
         
         <View style={styles.planContainer}>
-          <Text style={styles.planTitle}>Monthly Plan</Text>
-          <Text style={styles.price}>$4.99/month</Text>
-          <Text style={styles.features}>• Unlimited plant diagnoses</Text>
-          <Text style={styles.features}>• Advanced AI analysis</Text>
-          <Text style={styles.features}>• Treatment recommendations</Text>
-          <Text style={styles.features}>• Priority support</Text>
+          <Text style={styles.planTitle}>{translations.basicPlanTitle}</Text>
+          <Text style={styles.price}>{translations.basicPlanPrice}</Text>
+          <Text style={styles.features}>{translations.feature1}</Text>
+          <Text style={styles.features}>{translations.feature2}</Text>
+          <Text style={styles.features}>{translations.feature3}</Text>
+          <Text style={styles.features}>{translations.feature4}</Text>
           
           <TouchableOpacity 
             style={styles.subscribeButton}
             onPress={() => handleSubscribe('monthly')}
           >
-            <Text style={styles.subscribeButtonText}>Subscribe Monthly</Text>
+            <Text style={styles.subscribeButtonText}>{translations.subscribeButton}</Text>
           </TouchableOpacity>
         </View>
         
         <View style={styles.planContainer}>
-          <Text style={styles.planTitle}>Yearly Plan</Text>
-          <Text style={styles.price}>$39.99/year</Text>
-          <Text style={styles.savings}>Save $20 per year!</Text>
-          <Text style={styles.features}>• All monthly plan features</Text>
-          <Text style={styles.features}>• Best value</Text>
-          <Text style={styles.features}>• Cancel anytime</Text>
+          <Text style={styles.planTitle}>{translations.premiumPlanTitle}</Text>
+          <Text style={styles.price}>{translations.premiumPlanPrice}</Text>
+          <Text style={styles.savings}>{translations.premiumSavings}</Text>
+          <Text style={styles.features}>{translations.feature1}</Text>
+          <Text style={styles.features}>{translations.feature2}</Text>
+          <Text style={styles.features}>{translations.feature3}</Text>
+          <Text style={styles.features}>{translations.feature4}</Text>
+          <Text style={styles.features}>{translations.feature5}</Text>
+          <Text style={styles.features}>{translations.feature6}</Text>
           
           <TouchableOpacity 
             style={[styles.subscribeButton, styles.yearlyButton]}
             onPress={() => handleSubscribe('yearly')}
           >
-            <Text style={styles.subscribeButtonText}>Subscribe Yearly</Text>
+            <Text style={styles.subscribeButtonText}>{translations.subscribeButton}</Text>
           </TouchableOpacity>
         </View>
         
@@ -50,7 +56,7 @@ export default function PremiumScreen({ navigation }) {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backButtonText}>Back to Home</Text>
+          <Text style={styles.backButtonText}>{translations.backButton}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

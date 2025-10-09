@@ -10,8 +10,10 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function ProfileScreen({ navigation }) {
+  const { translations } = useLanguage();
   const [savedDiagnoses, setSavedDiagnoses] = useState([]);
   const [isPremium, setIsPremium] = useState(false);
   const [diagnosesCount, setDiagnosesCount] = useState(0);
@@ -40,11 +42,11 @@ export default function ProfileScreen({ navigation }) {
 
   const deleteDiagnosis = async (id) => {
     Alert.alert(
-      'Delete Diagnosis',
-      'Are you sure you want to delete this diagnosis?',
+      translations.confirmDelete,
+      translations.deleteMessage,
       [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => confirmDelete(id) },
+        { text: translations.cancel, style: 'cancel' },
+        { text: translations.delete, style: 'destructive', onPress: () => confirmDelete(id) },
       ]
     );
   };
@@ -97,10 +99,10 @@ export default function ProfileScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>My Plant Profile</Text>
+        <Text style={styles.title}>{translations.profileTitle}</Text>
         <View style={styles.statusBadge}>
           <Text style={styles.statusText}>
-            {isPremium ? '⭐ Premium' : '🆓 Free'}
+            {isPremium ? `⭐ ${translations.premiumStatus}` : `🆓 ${translations.freeStatus}`}
           </Text>
         </View>
       </View>
@@ -108,18 +110,18 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.statsContainer}>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{diagnosesCount}</Text>
-          <Text style={styles.statLabel}>Total Diagnoses</Text>
+          <Text style={styles.statLabel}>{translations.diagnosesCountLabel}</Text>
         </View>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{savedDiagnoses.length}</Text>
-          <Text style={styles.statLabel}>Saved Plants</Text>
+          <Text style={styles.statLabel}>{translations.savedPlantsLabel}</Text>
         </View>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>
             {isPremium ? '∞' : Math.max(0, 3 - diagnosesCount)}
           </Text>
           <Text style={styles.statLabel}>
-            {isPremium ? 'Unlimited' : 'Remaining'}
+            {isPremium ? translations.diagnosesCountLabel : translations.diagnosesCountLabel}
           </Text>
         </View>
       </View>
@@ -129,30 +131,30 @@ export default function ProfileScreen({ navigation }) {
           style={styles.upgradePrompt}
           onPress={() => navigation.navigate('Premium')}
         >
-          <Text style={styles.upgradeTitle}>⭐ Upgrade to Premium</Text>
+          <Text style={styles.upgradeTitle}>{translations.upgradeToPremium}</Text>
           <Text style={styles.upgradeSubtitle}>
-            Get unlimited diagnoses and save all your plants
+            {translations.upgradeDescription}
           </Text>
         </TouchableOpacity>
       )}
 
       <View style={styles.savedDiagnosesContainer}>
         <Text style={styles.sectionTitle}>
-          🌱 My Saved Plants ({savedDiagnoses.length})
+          {translations.myPlantsTitle} ({savedDiagnoses.length})
         </Text>
         
         {savedDiagnoses.length === 0 ? (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>🌿</Text>
-            <Text style={styles.emptyTitle}>No saved plants yet</Text>
+            <Text style={styles.emptyIcon}>{translations.emptyStateIcon}</Text>
+            <Text style={styles.emptyTitle}>{translations.emptyStateTitle}</Text>
             <Text style={styles.emptyDescription}>
-              Diagnose plants and save them to track your garden's health
+              {translations.emptyStateDescription}
             </Text>
             <TouchableOpacity
               style={styles.diagnoseButton}
               onPress={() => navigation.navigate('Camera')}
             >
-              <Text style={styles.diagnoseButtonText}>📷 Start Diagnosing</Text>
+              <Text style={styles.diagnoseButtonText}>{translations.diagnoseNowButton}</Text>
             </TouchableOpacity>
           </View>
         ) : (
