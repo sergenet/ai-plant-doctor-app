@@ -3,13 +3,13 @@ import { initReactI18next } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import translations
-import en from '../locales/en.json';
-import es from '../locales/es.json';
-import fr from '../locales/fr.json';
-import de from '../locales/de.json';
-import pt from '../locales/pt.json';
-import it from '../locales/it.json';
-import ja from '../locales/ja.json';
+const en = require('../locales/en.json');
+const es = require('../locales/es.json');
+const fr = require('../locales/fr.json');
+const de = require('../locales/de.json');
+const pt = require('../locales/pt.json');
+const it = require('../locales/it.json');
+const ja = require('../locales/ja.json');
 
 const LANGUAGE_STORAGE_KEY = 'user_language';
 
