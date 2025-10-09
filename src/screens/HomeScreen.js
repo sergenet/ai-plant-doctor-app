@@ -1,27 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../components/LanguageSelector';
 
 export default function HomeScreen({ navigation }) {
+  const { t } = useTranslation();
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>AI Plant Doctor</Text>
-        <Text style={styles.subtitle}>Diagnose plant diseases with AI</Text>
+        <TouchableOpacity 
+          style={styles.languageButton}
+          onPress={() => setShowLanguageSelector(true)}
+        >
+          <Text style={styles.languageButtonText}>🌐 Language</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.title}>{t('home.title')}</Text>
+        <Text style={styles.subtitle}>{t('home.subtitle')}</Text>
         
         <TouchableOpacity 
           style={styles.button}
           onPress={() => navigation.navigate('Camera')}
         >
-          <Text style={styles.buttonText}>Take Photo & Diagnose</Text>
+          <Text style={styles.buttonText}>{t('home.takePhoto')}</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.premiumButton}
           onPress={() => navigation.navigate('Premium')}
         >
-          <Text style={styles.premiumButtonText}>Get Premium</Text>
+          <Text style={styles.premiumButtonText}>{t('home.getPremium')}</Text>
         </TouchableOpacity>
       </View>
+      
+      <LanguageSelector 
+        visible={showLanguageSelector}
+        onClose={() => setShowLanguageSelector(false)}
+      />
     </SafeAreaView>
   );
 }
@@ -72,6 +89,20 @@ const styles = StyleSheet.create({
   premiumButtonText: {
     color: 'white',
     fontSize: 16,
+    fontWeight: 'bold',
+  },
+  languageButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    backgroundColor: '#2E7D32',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  languageButtonText: {
+    color: 'white',
+    fontSize: 14,
     fontWeight: 'bold',
   },
 });

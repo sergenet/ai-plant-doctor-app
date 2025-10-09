@@ -5,6 +5,7 @@ import ErrorBoundary from './src/components/ErrorBoundary';
 import HomeScreen from './src/screens/HomeScreen';
 import CameraScreen from './src/screens/CameraScreen';
 import PremiumScreen from './src/screens/PremiumScreen';
+import './src/i18n';
 
 const Stack = createStackNavigator();
 

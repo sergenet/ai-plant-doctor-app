@@ -1,0 +1,88 @@
+{
+  "common": {
+    "cancel": "Annulla",
+    "back": "Indietro",
+    "save": "Salva",
+    "delete": "Elimina",
+    "yes": "Sì",
+    "no": "No"
+  },
+  "home": {
+    "title": "Dottore delle Piante IA",
+    "subtitle": "Diagnostica le malattie delle piante con l'IA",
+    "takePhoto": "Scatta Foto e Diagnostica",
+    "getPremium": "Ottieni Premium"
+  },
+  "camera": {
+    "title": "Diagnosi delle Malattie delle Piante",
+    "takePhoto": "Scatta Foto",
+    "selectGallery": "Seleziona dalla Galleria",
+    "analyzePlant": "Analizza Pianta",
+    "analyzing": "Analisi in corso...",
+    "diagnosis": "Diagnosi:",
+    "permissionRequired": "Permesso richiesto",
+    "cameraPermission": "Il permesso della fotocamera è necessario per scattare una foto.",
+    "mediaPermission": "Il permesso della libreria multimediale è necessario per selezionare una foto.",
+    "selectImageFirst": "Si prega di selezionare prima un'immagine",
+    "error": "Errore",
+    "analysisError": "Impossibile analizzare l'immagine. Riprova.",
+    "upgradeRequired": "Aggiornamento Richiesto",
+    "upgradeMessage": "Hai utilizzato tutte e 3 le analisi gratuite. Passa a Premium per diagnosi illimitate.",
+    "upgrade": "Aggiorna"
+  },
+  "premium": {
+    "title": "Abbonamento Premium",
+    "subtitle": "Sblocca diagnosi illimitate delle piante",
+    "monthlyPlan": "Piano Mensile",
+    "yearlyPlan": "Piano Annuale",
+    "monthlyPrice": "4,99 €/mese",
+    "yearlyPrice": "39,99 €/anno",
+    "savings": "Risparmia 20 € all'anno!",
+    "unlimitedDiagnoses": "• Diagnosi illimitate delle piante",
+    "advancedAI": "• Analisi IA avanzata",
+    "treatmentRecommendations": "• Raccomandazioni per il trattamento",
+    "prioritySupport": "• Supporto prioritario",
+    "allMonthlyFeatures": "• Tutte le funzionalità del piano mensile",
+    "bestValue": "• Miglior valore",
+    "cancelAnytime": "• Annulla in qualsiasi momento",
+    "subscribeMonthly": "Abbonati Mensilmente",
+    "subscribeYearly": "Abbonati Annualmente",
+    "backToHome": "Torna alla Home"
+  },
+  "profile": {
+    "title": "Il Mio Profilo Piante",
+    "free": "Gratuito",
+    "premium": "Premium",
+    "stats": "Statistiche",
+    "totalDiagnoses": "Diagnosi Totali",
+    "savedDiagnoses": "Diagnosi Salvate",
+    "savedHistory": "Cronologia Salvata",
+    "emptyTitle": "Nessuna diagnosi salvata ancora",
+    "emptyDescription": "Inizia a diagnosticare le tue piante per costruire la tua cronologia!",
+    "startDiagnosing": "Inizia a Diagnosticare",
+    "deleteTitle": "Elimina Diagnosi",
+    "deleteMessage": "Sei sicuro di voler eliminare questa diagnosi?",
+    "plantDiagnosis": "Diagnosi della pianta disponibile"
+  },
+  "results": {
+    "diagnosis": "Diagnosi",
+    "disease": "Malattia:",
+    "treatment": "Trattamento:",
+    "save": "Salva Diagnosi",
+    "saved": "Salvato!",
+    "share": "Condividi Diagnosi",
+    "newDiagnosis": "Nuova Diagnosi",
+    "careTips": "Consigli per la Cura delle Piante",
+    "tip1": "• Annaffia regolarmente ma evita l'eccesso d'acqua",
+    "tip2": "• Assicura un drenaggio adeguato nei vasi",
+    "tip3": "• Fornisci luce solare adeguata",
+    "tip4": "• Controlla regolarmente i parassiti",
+    "shareMessage": "Diagnosi del Dottore delle Piante:\\n\\n{{disease}}\\n\\nTrattamento: {{treatment}}\\n\\nOttieni la tua diagnosi gratuita delle piante su: gardenwithserge.com",
+    "shareTitle": "Diagnosi del Dottore delle Piante"
+  },
+  "navigation": {
+    "home": "Dottore delle Piante IA",
+    "camera": "Diagnostica Pianta",
+    "premium": "Abbonamento Premium"
+  }
+}

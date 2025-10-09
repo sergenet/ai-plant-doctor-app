@@ -1,0 +1,88 @@
+{
+  "common": {
+    "cancel": "キャンセル",
+    "back": "戻る",
+    "save": "保存",
+    "delete": "削除",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "home": {
+    "title": "AI植物ドクター",
+    "subtitle": "AIで植物の病気を診断",
+    "takePhoto": "写真を撮って診断",
+    "getPremium": "プレミアムを取得"
+  },
+  "camera": {
+    "title": "植物病害診断",
+    "takePhoto": "写真を撮る",
+    "selectGallery": "ギャラリーから選択",
+    "analyzePlant": "植物を分析",
+    "analyzing": "分析中...",
+    "diagnosis": "診断：",
+    "permissionRequired": "権限が必要です",
+    "cameraPermission": "写真を撮るにはカメラの権限が必要です。",
+    "mediaPermission": "写真を選択するにはメディアライブラリの権限が必要です。",
+    "selectImageFirst": "最初に画像を選択してください",
+    "error": "エラー",
+    "analysisError": "画像の分析に失敗しました。もう一度お試しください。",
+    "upgradeRequired": "アップグレードが必要です",
+    "upgradeMessage": "無料分析3回をすべて使用しました。無制限診断のためにプレミアムにアップグレードしてください。",
+    "upgrade": "アップグレード"
+  },
+  "premium": {
+    "title": "プレミアムサブスクリプション",
+    "subtitle": "無制限の植物診断をアンロック",
+    "monthlyPlan": "月額プラン",
+    "yearlyPlan": "年額プラン",
+    "monthlyPrice": "¥500/月",
+    "yearlyPrice": "¥4,000/年",
+    "savings": "年間¥2,000お得！",
+    "unlimitedDiagnoses": "• 無制限の植物診断",
+    "advancedAI": "• 高度なAI分析",
+    "treatmentRecommendations": "• 治療の推奨事項",
+    "prioritySupport": "• 優先サポート",
+    "allMonthlyFeatures": "• 月額プランのすべての機能",
+    "bestValue": "• 最高の価値",
+    "cancelAnytime": "• いつでもキャンセル可能",
+    "subscribeMonthly": "月額で購読",
+    "subscribeYearly": "年額で購読",
+    "backToHome": "ホームに戻る"
+  },
+  "profile": {
+    "title": "マイプラントプロフィール",
+    "free": "無料",
+    "premium": "プレミアム",
+    "stats": "統計",
+    "totalDiagnoses": "総診断数",
+    "savedDiagnoses": "保存された診断",
+    "savedHistory": "保存された履歴",
+    "emptyTitle": "保存された診断はまだありません",
+    "emptyDescription": "履歴を作成するために植物の診断を始めましょう！",
+    "startDiagnosing": "診断を開始",
+    "deleteTitle": "診断を削除",
+    "deleteMessage": "この診断を削除してもよろしいですか？",
+    "plantDiagnosis": "植物診断が利用可能"
+  },
+  "results": {
+    "diagnosis": "診断",
+    "disease": "病気：",
+    "treatment": "治療：",
+    "save": "診断を保存",
+    "saved": "保存されました！",
+    "share": "診断を共有",
+    "newDiagnosis": "新しい診断",
+    "careTips": "植物のケアのヒント",
+    "tip1": "• 定期的に水やりしますが、過剰な水やりは避けてください",
+    "tip2": "• 鉢に適切な排水を確保してください",
+    "tip3": "• 十分な日光を提供してください",
+    "tip4": "• 定期的に害虫を監視してください",
+    "shareMessage": "プラントドクター診断：\\n\\n{{disease}}\\n\\n治療：{{treatment}}\\n\\n無料の植物診断を取得：gardenwithserge.com",
+    "shareTitle": "プラントドクター診断"
+  },
+  "navigation": {
+    "home": "AI植物ドクター",
+    "camera": "植物を診断",
+    "premium": "プレミアムサブスクリプション"
+  }
+}

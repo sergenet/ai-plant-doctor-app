@@ -1,0 +1,88 @@
+{
+  "common": {
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "home": {
+    "title": "KI-Pflanzendoktor",
+    "subtitle": "Pflanzenkrankheiten mit KI diagnostizieren",
+    "takePhoto": "Foto Aufnehmen und Diagnostizieren",
+    "getPremium": "Premium Erhalten"
+  },
+  "camera": {
+    "title": "Pflanzenkrankheitsdiagnose",
+    "takePhoto": "Foto Aufnehmen",
+    "selectGallery": "Aus Galerie Auswählen",
+    "analyzePlant": "Pflanze Analysieren",
+    "analyzing": "Analysiere...",
+    "diagnosis": "Diagnose:",
+    "permissionRequired": "Berechtigung erforderlich",
+    "cameraPermission": "Kameraberechtigung ist erforderlich, um ein Foto aufzunehmen.",
+    "mediaPermission": "Medienbibliothekberechtigung ist erforderlich, um ein Foto auszuwählen.",
+    "selectImageFirst": "Bitte wählen Sie zuerst ein Bild aus",
+    "error": "Fehler",
+    "analysisError": "Bildanalyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "upgradeRequired": "Upgrade Erforderlich",
+    "upgradeMessage": "Sie haben alle 3 kostenlosen Analysen verbraucht. Upgraden Sie auf Premium für unbegrenzte Diagnosen.",
+    "upgrade": "Upgraden"
+  },
+  "premium": {
+    "title": "Premium-Abonnement",
+    "subtitle": "Unbegrenzte Pflanzendiagnosen freischalten",
+    "monthlyPlan": "Monatsplan",
+    "yearlyPlan": "Jahresplan",
+    "monthlyPrice": "4,99 €/Monat",
+    "yearlyPrice": "39,99 €/Jahr",
+    "savings": "Sparen Sie 20 € pro Jahr!",
+    "unlimitedDiagnoses": "• Unbegrenzte Pflanzendiagnosen",
+    "advancedAI": "• Erweiterte KI-Analyse",
+    "treatmentRecommendations": "• Behandlungsempfehlungen",
+    "prioritySupport": "• Vorrangiger Support",
+    "allMonthlyFeatures": "• Alle Funktionen des Monatsplans",
+    "bestValue": "• Bestes Preis-Leistungs-Verhältnis",
+    "cancelAnytime": "• Jederzeit kündbar",
+    "subscribeMonthly": "Monatlich Abonnieren",
+    "subscribeYearly": "Jährlich Abonnieren",
+    "backToHome": "Zurück zur Startseite"
+  },
+  "profile": {
+    "title": "Mein Pflanzenprofil",
+    "free": "Kostenlos",
+    "premium": "Premium",
+    "stats": "Statistiken",
+    "totalDiagnoses": "Gesamtdiagnosen",
+    "savedDiagnoses": "Gespeicherte Diagnosen",
+    "savedHistory": "Gespeicherter Verlauf",
+    "emptyTitle": "Noch keine Diagnosen gespeichert",
+    "emptyDescription": "Beginnen Sie mit der Diagnose Ihrer Pflanzen, um Ihren Verlauf aufzubauen!",
+    "startDiagnosing": "Diagnose Starten",
+    "deleteTitle": "Diagnose Löschen",
+    "deleteMessage": "Sind Sie sicher, dass Sie diese Diagnose löschen möchten?",
+    "plantDiagnosis": "Pflanzendiagnose verfügbar"
+  },
+  "results": {
+    "diagnosis": "Diagnose",
+    "disease": "Krankheit:",
+    "treatment": "Behandlung:",
+    "save": "Diagnose Speichern",
+    "saved": "Gespeichert!",
+    "share": "Diagnose Teilen",
+    "newDiagnosis": "Neue Diagnose",
+    "careTips": "Pflegeanleitung für Pflanzen",
+    "tip1": "• Regelmäßig gießen, aber Überwässerung vermeiden",
+    "tip2": "• Sicherstellen einer guten Drainage in Töpfen",
+    "tip3": "• Ausreichend Sonnenlicht bereitstellen",
+    "tip4": "• Regelmäßig auf Schädlinge überwachen",
+    "shareMessage": "Pflanzendoktor-Diagnose:\\n\\n{{disease}}\\n\\nBehandlung: {{treatment}}\\n\\nHolen Sie sich Ihre kostenlose Pflanzendiagnose auf: gardenwithserge.com",
+    "shareTitle": "Pflanzendoktor-Diagnose"
+  },
+  "navigation": {
+    "home": "KI-Pflanzendoktor",
+    "camera": "Pflanze Diagnostizieren",
+    "premium": "Premium-Abonnement"
+  }
+}
