@@ -6,10 +6,15 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "web:export": "expo export --platform web",
+    "electron:dev": "concurrently -k \"expo start --web\" \"wait-on http://localhost:8081 && ELECTRON_DEV=1 electron electron/main.js\"",
+    "electron:pack": "npm run web:export && electron-builder --win --dir",
+    "electron:build": "npm run web:export && electron-builder --win"
   },
   "dependencies": {
     "@expo/cli": "^0.24.13",
+    "@expo/metro-runtime": "~5.0.5",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
@@ -18,15 +23,21 @@
     "expo": "^53.0.11",
     "expo-image-picker": "~16.1.4",
     "react": "19.0.0",
+    "react-dom": "^19.0.0",
     "react-native": "0.79.3",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-image-picker": "^7.2.3",
     "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.11.1"
+    "react-native-screens": "~4.11.1",
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "rimraf": "^5.0.10"
+    "concurrently": "^9.1.2",
+    "electron": "^41.0.0",
+    "electron-builder": "^25.1.8",
+    "rimraf": "^5.0.10",
+    "wait-on": "^8.0.3"
   },
   "private": true
 }

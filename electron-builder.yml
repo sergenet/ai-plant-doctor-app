@@ -1,0 +1,35 @@
+appId: com.gardenwithserge.plantdoctor
+productName: AI Plant Doctor
+
+# Override the package.json `main` (which points to the Expo entry point)
+# so electron-builder uses the Electron main process file instead.
+extraMetadata:
+  main: electron/main.js
+
+directories:
+  output: dist-electron
+  buildResources: assets
+
+# Files to include in the packaged app:
+#  - the Electron process files
+#  - the Expo web build output (produced by `npm run web:export`)
+files:
+  - electron/**/*
+  - dist/**/*
+  - assets/icon.png
+  - package.json
+
+win:
+  icon: assets/icon.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: AI Plant Doctor
