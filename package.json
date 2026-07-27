@@ -6,7 +6,11 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "web:export": "expo export --platform web",
+    "electron:dev": "concurrently -k \"expo start --web\" \"wait-on http://localhost:8081 && ELECTRON_DEV=1 electron electron/main.js\"",
+    "electron:pack": "npm run web:export && electron-builder --win --dir",
+    "electron:build": "npm run web:export && electron-builder --win"
   },
   "dependencies": {
     "@expo/cli": "^0.24.13",
@@ -26,7 +30,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "rimraf": "^5.0.10"
+    "concurrently": "^9.1.2",
+    "electron": "^41.0.0",
+    "electron-builder": "^25.1.8",
+    "rimraf": "^5.0.10",
+    "wait-on": "^8.0.3"
   },
   "private": true
 }
